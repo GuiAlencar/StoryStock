@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:story_stock/services/firebase_service.dart';
+import 'package:story_stock/view/pages/home_page.dart';
+import 'package:story_stock/view/pages/register_page.dart';
 import 'firebase_options.dart';
+
+import 'package:story_stock/view/pages/login_page.dart';
+import 'package:story_stock/view/theme/dark_mode.dart';
+import 'package:story_stock/view/theme/light_mode.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,6 +15,20 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+}
+
+class StoryStock extends StatelessWidget {
+  const StoryStock({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: RegisterPage(),
+      theme: lighMode,
+      darkTheme: darkMode,
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +39,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: Home(),
+      home: StoryStock(),
     );
   }
 }
 
+// -----------------------------------------
+// BUSCANDO DADOS DO FIREBASE
 class Home extends StatefulWidget {
   const Home({
     Key? key,

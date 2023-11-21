@@ -14,3 +14,8 @@ Future<List> getCadastro() async {
 
   return cadastro;
 }
+
+//Mandar para o FireBase
+Future<void> addCadastro(String nome, String email) async {
+  await db.collection("cadastro").add({"nome": nome, "email": email});
+}
