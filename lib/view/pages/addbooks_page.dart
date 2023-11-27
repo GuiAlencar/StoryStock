@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:story_stock/view/pages/home_page.dart';
-import 'package:story_stock/view/pages/booksname_page.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:story_stock/view/pages/registerbook_page.dart';
 
 void main() {
   runApp(StoryStock());
@@ -15,7 +18,39 @@ class StoryStock extends StatelessWidget {
   }
 }
 
-class AddPhotosPage extends StatelessWidget {
+class AddPhotosPage extends StatefulWidget {
+  const AddPhotosPage({super.key});
+
+  @override
+  State<AddPhotosPage> createState() => _AddPhotosPageState();
+}
+
+class _AddPhotosPageState extends State<AddPhotosPage> {
+  final FirebaseStorage storage = FirebaseStorage.instance;
+
+  Future<XFile?> getImage() async {
+    final ImagePicker picker = ImagePicker();
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    return image;
+  }
+
+  Future<void> upload(String path) async {
+    File file = File(path);
+    try {
+      String ref = 'images/img-${DateTime.now().toString()}.jpg';
+      await storage.ref(ref).putFile(file);
+    } on FirebaseException catch (e) {
+      throw Exception('Erro no upload: ${e.code}');
+    }
+  }
+
+  pickAndUploadImage() async {
+    XFile? file = await getImage();
+    if (file != null) {
+      await upload(file.path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +70,9 @@ class AddPhotosPage extends StatelessWidget {
                 ),
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  return PhotoIcon();
+                  return PhotoIcon(
+                    onPressed: pickAndUploadImage,
+                  );
                 },
               ),
             ),
@@ -49,7 +86,7 @@ class AddPhotosPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            (BooksNamePage()))); // Adicione a lógica para confirmar e processar as fotos aqui
+                            (RegisterBookPage()))); // Adicione a lógica para confirmar e processar as fotos aqui
               },
               child: Text('Confirmar'),
             ),
@@ -60,7 +97,15 @@ class AddPhotosPage extends StatelessWidget {
   }
 }
 
-class PhotoIcon extends StatelessWidget {
+class PhotoIcon extends StatefulWidget {
+  final VoidCallback onPressed;
+  PhotoIcon({required this.onPressed});
+
+  @override
+  State<PhotoIcon> createState() => _PhotoIconState();
+}
+
+class _PhotoIconState extends State<PhotoIcon> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,9 +118,9 @@ class PhotoIcon extends StatelessWidget {
       ),
       child: IconButton(
         icon: Icon(Icons.add),
-        onPressed: () {
-          // Adicione a lógica para escolher uma foto aqui
-        },
+        onPressed: widget.onPressed,
+
+        // Adicione a lógica para escolher uma foto aqui
       ),
     );
   }
