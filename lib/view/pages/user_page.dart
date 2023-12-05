@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:story_stock/view/pages/home_page.dart';
+import 'package:story_stock/view/pages/myshoppingcart2_page.dart';
 import 'package:story_stock/view/pages/search_page.dart';
 import 'package:story_stock/view/pages/settings_page.dart';
+import 'package:story_stock/view/pages/wishbooks2_page.dart';
 import 'package:story_stock/view/pages/wishbooks_page.dart';
 import 'package:story_stock/view/pages/booksannounced_page.dart';
 import 'package:story_stock/view/pages/myshoppingcart_page.dart';
@@ -57,7 +59,7 @@ class UserPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            (WishBooks()))); // Navegar para a tela de pesquisa
+                            (WishBooks2()))); // Navegar para a tela de pesquisa
               },
             ),
             ListTile(
@@ -79,7 +81,7 @@ class UserPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => (ShoppingCartPage())));
+                        builder: (context) => (ShoppingCartPage2())));
               },
             ),
             ListTile(

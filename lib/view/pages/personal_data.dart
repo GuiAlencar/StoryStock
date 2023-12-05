@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(StoryStock());
+  runApp(MaterialApp(
+    home: StoryStock(),
+  ));
 }
 
 class StoryStock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Dados Pessoais',
-        ),
-        ),
-        body: PersonalDataScreen(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dados Pessoais'),
       ),
+      body: PersonalDataScreen(),
     );
   }
 }
@@ -28,7 +26,6 @@ class PersonalDataScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Adicione a imagem do usuário aqui
           CircleAvatar(
             radius: 50,
             backgroundImage: AssetImage('lib/images/userr.png'),
@@ -36,11 +33,11 @@ class PersonalDataScreen extends StatelessWidget {
           SizedBox(height: 20),
           PersonalDataField(
             label: 'Nome',
-            value: 'Rafael Feitosa',
+            value: 'Guilherme Henrique',
           ),
           PersonalDataField(
             label: 'E-mail',
-            value: 'rafael.feitosa@ifgoiano.edu.br',
+            value: 'guilherme@gmail.com',
           ),
           PersonalDataField(
             label: 'CPF',

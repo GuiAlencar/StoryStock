@@ -29,6 +29,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   TextEditingController cpfController = TextEditingController();
   TextEditingController telefoneController = TextEditingController();
   TextEditingController logradouroController = TextEditingController();
@@ -88,14 +90,67 @@ class _SignUpPageState extends State<SignUpPage> {
                 final nomeController = widget.controllersMap['nomeController'];
                 final emailController =
                     widget.controllersMap['emailController'];
+                final dataNascimentoController =
+                    widget.controllersMap['dataNascimentoController'];
+                final definirSenhaController =
+                    widget.controllersMap['definirSenhaController'];
+                final confirmarSenhaController =
+                    widget.controllersMap['confirmarSenhaController'];
 
-                if (nomeController != null && emailController != null) {
+                if (nomeController != null &&
+                    emailController != null &&
+                    dataNascimentoController != null &&
+                    definirSenhaController != null &&
+                    confirmarSenhaController != null &&
+                    confirmarSenhaController != null &&
+                    cpfController != null &&
+                    telefoneController != null &&
+                    logradouroController != null &&
+                    enderecoController != null &&
+                    cepController != null &&
+                    estadoController != null &&
+                    numeroController != null &&
+                    cidadeController != null) {
                   final nome = nomeController.text;
                   final email = emailController.text;
-                  await addCadastro(nome, email);
+                  final dataNascimento = dataNascimentoController.text;
+                  final definirSenha = definirSenhaController.text;
+                  final confirmarSenha = confirmarSenhaController.text;
+                  final cpf = cpfController.text;
+                  final telefone = telefoneController.text;
+                  final logradouro = logradouroController.text;
+                  final endereco = enderecoController.text;
+                  final cep = cepController.text;
+                  final estado = estadoController.text;
+                  final numero = numeroController.text;
+                  final cidade = cidadeController.text;
+
+                  await FirebaseService().addCadastro(
+                      nome,
+                      email,
+                      dataNascimento,
+                      definirSenha,
+                      confirmarSenha,
+                      cpf,
+                      telefone,
+                      logradouro,
+                      endereco,
+                      cep,
+                      estado,
+                      numero,
+                      cidade);
                 } else {
-                  // Trate o caso em que os controladores são nulos
+                  // Tratar o caso em que os controladores são nulos
                 }
+                // ------------------------------------------------
+                // void _showCadastroSuccessMessage(BuildContext context) {
+                //   final snackBar = SnackBar(
+                //     content: Text('Usuário cadastrado com sucesso!'),
+                //     duration: Duration(seconds: 2),
+                //   );
+                //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                // }
+                // ------------------------------------------------
               },
               child: Text('Criar Conta'),
             ),

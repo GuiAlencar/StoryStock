@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:story_stock/services/firebase_service.dart';
 import 'package:story_stock/view/pages/home_page.dart';
 import 'package:story_stock/view/pages/register_page.dart';
+import 'package:story_stock/view/pages/registerbook_page.dart';
 import 'firebase_options.dart';
 
 import 'package:story_stock/view/pages/login_page.dart';
@@ -24,7 +25,7 @@ class StoryStock extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RegisterPage(),
+      home: LoginPage(),
       theme: lighMode,
       darkTheme: darkMode,
     );
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
         title: const Text('Material app bars'),
       ),
       body: FutureBuilder(
-        future: getCadastro(),
+        future: FirebaseService().getCadastro(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(

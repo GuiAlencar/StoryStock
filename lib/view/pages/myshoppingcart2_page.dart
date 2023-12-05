@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:story_stock/view/pages/addbooks_page.dart';
 import 'package:story_stock/view/pages/home_page.dart';
 import 'package:story_stock/view/pages/search_page.dart';
 import 'package:story_stock/view/pages/settings_page.dart';
@@ -18,12 +17,40 @@ class StoryStock extends StatelessWidget {
   }
 }
 
-class BooksAnnounced extends StatelessWidget {
+class ShoppingCartPage2 extends StatefulWidget {
+  @override
+  State<ShoppingCartPage2> createState() => _ShoppingCartPageState();
+}
+
+class _ShoppingCartPageState extends State<ShoppingCartPage2> {
+  List<Item> items = [
+    Item("Livro: Todas as suas imperfeições", "lib/images/todas.png", 10.0),
+    Item("Livro: É assim que acaba", "lib/images/book.png", 15.0),
+  ];
+
+  double total = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    calculateTotal();
+  }
+
+  void calculateTotal() {
+    double sum = 0.0;
+    for (var item in items) {
+      sum += item.valor;
+    }
+    setState(() {
+      total = sum;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Livros anunciados"),
+        title: Text('Meu carrinho'),
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
@@ -35,34 +62,37 @@ class BooksAnnounced extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text('O lado feio do amor'),
-            subtitle: Text('Colleen Hoover'),
-            leading: CircleAvatar(
-              backgroundImage: AssetImage('lib/images/o_lado.png'),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage(items[index].imagePath),
+                  ),
+                  title: Text(items[index].nome),
+                  subtitle:
+                      Text('R\$ ${items[index].valor.toStringAsFixed(2)}'),
+                );
+              },
             ),
           ),
-          ListTile(
-            title: Text('O homem de giz'),
-            subtitle: Text('C. J. Tudor'),
-            leading: CircleAvatar(
-              backgroundImage: AssetImage('lib/images/o_homem.png'),
-            ),
+          Text(
+            'Total: R\$ ${total.toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => UserPage()));
+              // Implemente a ação de confirmação aqui
+            },
+            child: Text('Confirmar'),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddPhotosPage(),
-            ),
-          ); // Adicione a lógica para confirmar e processar as fotos aqui
-        },
-        child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -102,4 +132,12 @@ class BooksAnnounced extends StatelessWidget {
       ),
     );
   }
+}
+
+class Item {
+  final String nome;
+  final String imagePath;
+  final double valor;
+
+  Item(this.nome, this.imagePath, this.valor);
 }

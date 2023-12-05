@@ -27,27 +27,29 @@ class WishBooks extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => (SettingsPage())));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => (SettingsPage())));
               // Navegar para a tela de configurações
             },
           ),
         ],
       ),
-      body: Column(
+      body: ListView(
         children: [
-          // Lista de livros
-          Expanded(
-            child: ListView(
-              children: List.generate(2, (index) {
-                return ListTile(
-                  leading: Icon(Icons.book),
-                  title: Text("Livro ${index + 1}"),
-                  subtitle: Text("Autor do Livro ${index + 1}"),
-                  onTap: () {
-                    // Ação quando o livro for clicado
-                  },
-                );
-              }),
+          ListTile(
+            title: Text('A culpa é das estrelas'),
+            subtitle: Text('Jonh Green'),
+            leading: CircleAvatar(
+              backgroundImage: AssetImage(
+                  'lib/images/a_culpa_é_das_estrelas.png'), // Substitua pelo caminho real da imagem
+            ),
+          ),
+          ListTile(
+            title: Text('Os sete maridos de Evelyn Hugo'),
+            subtitle: Text('Taylor Jenkins Reid'),
+            leading: CircleAvatar(
+              backgroundImage: AssetImage(
+                  'lib/images/os_sete.png'), // Substitua pelo caminho real da imagem
             ),
           ),
         ],
@@ -59,14 +61,18 @@ class WishBooks extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.home),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => (StoryStockHome())));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => (StoryStockHome())));
                 // Navegar para a tela de livros
               },
             ),
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => (SearchPage())));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => (SearchPage())));
 
                 // Navegar para a tela de pesquisa
               },
@@ -74,7 +80,11 @@ class WishBooks extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-               Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage())); // Navegar para o perfil do usuário
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            UserPage())); // Navegar para o perfil do usuário
               },
             ),
           ],

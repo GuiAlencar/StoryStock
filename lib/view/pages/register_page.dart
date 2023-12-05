@@ -83,6 +83,9 @@ class RegisterPage extends StatelessWidget {
                 final controllersMap = {
                   'nomeController': nomeController,
                   'emailController': emailController,
+                  'dataNascimentoController': dataNascimentoController,
+                  'definirSenhaController': definirSenhaController,
+                  'confirmarSenhaController': confirmarSenhaController,
                   // Adicione outros controladores ao Map, se necessário
                 };
                 Navigator.push(
